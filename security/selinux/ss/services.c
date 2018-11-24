@@ -73,7 +73,7 @@
 int selinux_android_netlink_route;
 int selinux_android_netlink_getneigh;
 /* Policy capability names */
-char *selinux_policycap_names[__POLICYDB_CAPABILITY_MAX] = {
+const char *selinux_policycap_names[__POLICYDB_CAPABILITY_MAX] = {
 	"network_peer_controls",
 	"open_perms",
 	"compat1",

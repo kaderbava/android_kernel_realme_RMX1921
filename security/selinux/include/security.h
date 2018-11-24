@@ -78,7 +78,7 @@ enum {
 
 extern int selinux_android_netlink_route;
 extern int selinux_android_netlink_getneigh;
-extern char *selinux_policycap_names[__POLICYDB_CAPABILITY_MAX];
+extern const char *selinux_policycap_names[__POLICYDB_CAPABILITY_MAX];
 
 /*
  * type_datum properties
