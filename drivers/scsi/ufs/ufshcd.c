@@ -10998,6 +10998,9 @@ int ufshcd_init(struct ufs_hba *hba, void __iomem *mmio_base, unsigned int irq)
     //xiaofan.yang@PSW.TECH.Stability, 2019/03/15,Add for check storage endurance
 	ufs_sysfs_add_nodes(hba->dev);
 #endif
+
+	device_enable_async_suspend(dev);
+
 	return 0;
 
 out_remove_scsi_host:
