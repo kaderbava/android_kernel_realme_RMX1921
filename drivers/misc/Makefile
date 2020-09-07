@@ -66,6 +66,7 @@ obj-$(CONFIG_UID_SYS_STATS)	+= uid_sys_stats.o
 # Mengmeng.Wang@SRC.System, 2018/08/28, Add for oiface
 obj-y				+= schedx.o
 #endif
+obj-$(CONFIG_BATTERY_SAVER)	+= battery_saver.o
 
 lkdtm-$(CONFIG_LKDTM)		+= lkdtm_core.o
 lkdtm-$(CONFIG_LKDTM)		+= lkdtm_bugs.o
