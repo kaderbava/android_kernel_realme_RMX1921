@@ -429,14 +429,8 @@ static int _iommu_unmap_sync_pc(struct kgsl_pagetable *pt,
 
 	_iommu_sync_mmu_pc(true);
 
-	/*
-	 * Take iommu unmap fast path if CX GDSC is in OFF state.
-	 */
-	if (iommu->vddcx_regulator &&
-			(!regulator_is_enabled(iommu->vddcx_regulator)))
-		unmapped = iommu_unmap_fast(iommu_pt->domain, addr, size);
-	else
-		unmapped = iommu_unmap(iommu_pt->domain, addr, size);
+
+        unmapped = iommu_unmap(iommu_pt->domain, addr, size);
 
 	_iommu_sync_mmu_pc(false);
 
