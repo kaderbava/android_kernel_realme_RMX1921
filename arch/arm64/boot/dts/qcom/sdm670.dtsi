@@ -3331,3 +3331,17 @@
 		pinctrl-0 = <&nx30p6093_intr_default>;
 	};
 };
+
+&clock_cpucc {
+	qcom,cpufreq-table-0 =
+		<576000>,
+		<1209600>,
+		<1612800>,
+		<1708800>;
+
+	qcom,cpufreq-table-6 =
+		<652800>,
+		<979200>,
+		<1843200>,
+		<2304000>;
+};
