@@ -30,6 +30,9 @@ static void *seq_buf_alloc(unsigned long size)
 /*huacai.zhou@PSW.BSP.Kernel.MM 2018/07/18 optimize for high order allocation*/
 	gfp_t gfp = GFP_KERNEL;
 
+	if (unlikely(size > MAX_RW_COUNT))
+		return NULL;
+
 	/*
 	 * For high order allocations, use __GFP_NORETRY to avoid oom-killing -
 	 * it's better to fall back to vmalloc() than to kill things.  For small
