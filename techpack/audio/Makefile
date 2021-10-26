@@ -39,3 +39,6 @@ obj-y += asoc/
 obj-y += dsp/
 obj-y += ipc/
 obj-y += soc/
+
+ccflags-y += $(call cc-option, -g0)
+ccflags-y += $(call cc-option, -Os)
