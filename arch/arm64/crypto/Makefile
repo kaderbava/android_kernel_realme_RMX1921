@@ -32,6 +32,9 @@ aes-neon-blk-y := aes-glue-neon.o aes-neon.o
 obj-$(CONFIG_CRYPTO_AES_ARM64) += aes-arm64.o
 aes-arm64-y := aes-cipher-core.o aes-cipher-glue.o
 
+ccflags-y += -mtune=cortex-a75 -march=armv8.2-a+crypto+crc
+asflags-y += -mtune=cortex-a75 -march=armv8.2-a+crypto+crc
+
 AFLAGS_aes-ce.o		:= -DINTERLEAVE=4
 AFLAGS_aes-neon.o	:= -DINTERLEAVE=4
 
