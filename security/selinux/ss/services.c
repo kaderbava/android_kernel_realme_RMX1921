@@ -70,8 +70,6 @@
 #include "ebitmap.h"
 #include "audit.h"
 
-int selinux_android_netlink_route;
-int selinux_android_netlink_getneigh;
 /* Policy capability names */
 const char *selinux_policycap_names[__POLICYDB_CAPABILITY_MAX] = {
 	"network_peer_controls",
@@ -2099,9 +2097,6 @@ static void security_load_policycaps(struct selinux_state *state)
 	for (i = 0; i < ARRAY_SIZE(state->policycap); i++)
 		state->policycap[i] = ebitmap_get_bit(&p->policycaps, i);
 
-	selinux_android_netlink_route = policydb.android_netlink_route;
-	selinux_android_netlink_getneigh = policydb.android_netlink_getneigh;
-	selinux_nlmsg_init();
 	for (i = 0; i < ARRAY_SIZE(selinux_policycap_names); i++)
 		pr_info("SELinux:  policy capability %s=%d\n",
 			selinux_policycap_names[i],
@@ -2112,6 +2107,9 @@ static void security_load_policycaps(struct selinux_state *state)
 			pr_info("SELinux:  unknown policy capability %u\n",
 				i);
 	}
+
+	state->android_netlink_route = p->android_netlink_route;
+	selinux_nlmsg_init();
 }
 
 static int security_preserve_bools(struct selinux_state *state,
