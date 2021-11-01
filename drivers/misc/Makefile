@@ -63,7 +63,6 @@ obj-$(CONFIG_QCOM_XR_SMRTVWR_MISC) += qcom-xr-smrtvwr-misc.o
 obj-$(CONFIG_TUSB1064_XR_MISC) += tusb1064.o
 obj-$(CONFIG_VXR200_XR_MISC) += vxr7200.o
 obj-$(CONFIG_UID_SYS_STATS)	+= uid_sys_stats.o
-obj-$(CONFIG_BATTERY_SAVER)	+= battery_saver.o
 obj-$(CONFIG_MEMORY_STATE_TIME)	+= memory_state_time.o
 
 lkdtm-$(CONFIG_LKDTM)		+= lkdtm_core.o
