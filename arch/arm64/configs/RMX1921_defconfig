@@ -1,6 +1,6 @@
 #
 # Automatically generated file; DO NOT EDIT.
-# Linux/arm64 4.9.261 Kernel Configuration
+# Linux/arm64 4.9.300 Kernel Configuration
 #
 CONFIG_ARM64=y
 CONFIG_64BIT=y
@@ -5562,5 +5562,4 @@ CONFIG_ENABLE_DEFAULT_TRACERS=y
 CONFIG_TIMER_STATS=y
 CONFIG_WIREGUARD=y
 CONFIG_KLAPSE=y
-CONFIG_BOEFFLA_WL_BLOCKER=y
-
+# CONFIG_BOEFFLA_WL_BLOCKER is not set
