@@ -96,22 +96,11 @@ static void oppo_vooc_awake_init(struct oppo_vooc_chip *chip)
 		return;
 	}
 
-#if (LINUX_VERSION_CODE < KERNEL_VERSION(4, 9, 0))
-	wake_lock_init(&chip->vooc_wake_lock, WAKE_LOCK_SUSPEND, "vooc_wake_lock");
-#else
 	chip->vooc_ws = wakeup_source_register("vooc_wake_lock");
-#endif
 }
 
 static void oppo_vooc_set_awake(struct oppo_vooc_chip *chip, bool awake)
 {
-#if (LINUX_VERSION_CODE < KERNEL_VERSION(4, 9, 0))
-	if (awake) {
-		wake_lock(&chip->vooc_wake_lock);
-	} else {
-		wake_unlock(&chip->vooc_wake_lock);
-	}
-#else
 	static bool pm_flag = false;
 
 	if (!chip || !chip->vooc_ws) {
@@ -119,12 +108,11 @@ static void oppo_vooc_set_awake(struct oppo_vooc_chip *chip, bool awake)
 	}
 	if (awake && !pm_flag) {
 		pm_flag = true;
-		__pm_stay_awake(chip->vooc_ws);
+		__pm_wakeup_event(chip->vooc_ws, 500);
 	} else if (!awake && pm_flag) {
 		__pm_relax(chip->vooc_ws);
 		pm_flag = false;
 	}
-#endif
 }
 
 static void oppo_vooc_watchdog(unsigned long data)
