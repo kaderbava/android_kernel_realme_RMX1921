@@ -60,7 +60,7 @@
 			reg = <0x0 0x0>;
 			clock-frequency = <1708800000>;
 			enable-method = "psci";
-			efficiency = <612>;
+			efficiency = <632>;
 			cache-size = <0x10000>;
 			cpu-release-addr = <0x0 0x90000000>;
 			next-level-cache = <&L2_0>;
@@ -97,7 +97,7 @@
 			reg = <0x0 0x100>;
 			clock-frequency = <1708800000>;
 			enable-method = "psci";
-			efficiency = <612>;
+			efficiency = <632>;
 			cache-size = <0x10000>;
 			cpu-release-addr = <0x0 0x90000000>;
 			next-level-cache = <&L2_100>;
@@ -129,7 +129,7 @@
 			reg = <0x0 0x200>;
 			enable-method = "psci";
 			clock-frequency = <1708800000>;
-			efficiency = <612>;
+			efficiency = <632>;
 			cache-size = <0x10000>;
 			cpu-release-addr = <0x0 0x90000000>;
 			next-level-cache = <&L2_200>;
@@ -161,7 +161,7 @@
 			reg = <0x0 0x300>;
 			clock-frequency = <1708800000>;
 			enable-method = "psci";
-			efficiency = <612>;
+			efficiency = <632>;
 			cache-size = <0x10000>;
 			cpu-release-addr = <0x0 0x90000000>;
 			next-level-cache = <&L2_300>;
@@ -193,7 +193,7 @@
 			reg = <0x0 0x400>;
 			clock-frequency = <1708800000>;
 			enable-method = "psci";
-			efficiency = <612>;
+			efficiency = <632>;
 			cache-size = <0x10000>;
 			cpu-release-addr = <0x0 0x90000000>;
 			next-level-cache = <&L2_400>;
@@ -225,7 +225,7 @@
 			reg = <0x0 0x500>;
 			clock-frequency = <1708800000>;
 			enable-method = "psci";
-			efficiency = <612>;
+			efficiency = <632>;
 			cache-size = <0x10000>;
 			cpu-release-addr = <0x0 0x90000000>;
 			next-level-cache = <&L2_500>;
@@ -358,41 +358,43 @@
 
 		CPU_COST_0: core-cost0 {
 			busy-cost-data = <
-				 300000    73
-				 576000    81
-				 748800    84
-				 998400   107
-				1209600   110
-				1324800   128
-				1516800   131
-				1612800   142
-				1708800   162
+				 300000    58
+				 576000    74
+				 748800    87
+				 998400   101
+				1209600   118
+				1324800   126
+				1516800   140
+				1612800   145
+				1708800   160
 			>;
 			idle-cost-data = <
 				12 10 8 6 4
 			>;
 		};
+
 		CPU_COST_1: core-cost1 {
 			busy-cost-data = <
-				 300000     82
-				 652800    123
-				 825600    170
-				 979200    180
-				1132800    210
-				1363200    267
-				1536000    323
-				1747200    394
-				1843200    403
-				1996800    472
-				2054400    510
-				2169600    614
-				2208000    591
-				2304000    692
+				 300000     86
+				 652800    131
+				 825600    153
+				 979200    182
+				1132800    217
+				1363200    271
+				1536000    322
+				1747200    422
+				1843200    440
+				1996800    508
+				2054400    547
+				2169600    627
+				2208000    658
+				2304000    694
 			>;
 			idle-cost-data = <
 				100 80 60 40 20
 			>;
 		};
+
 		CLUSTER_COST_0: cluster-cost0 {
 			busy-cost-data = <
 				 300000    6
@@ -409,6 +411,7 @@
 				5 4 3 2 1
 			>;
 		};
+
 		CLUSTER_COST_1: cluster-cost1 {
 			busy-cost-data = <
 				 300000    25
@@ -421,10 +424,10 @@
 				1747200    64
 				1843200    65
 				1996800    69
-				2054400    87
-				2169600    90
-				2208000    92
-				2304000    93
+				2054400    85
+				2169600    87
+				2208000    90
+				2304000    92
 			>;
 			idle-cost-data = <
 				5 4 3 2 1
