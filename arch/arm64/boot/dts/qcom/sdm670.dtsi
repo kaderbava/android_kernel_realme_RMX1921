@@ -3349,3 +3349,7 @@
 		pinctrl-0 = <&nx30p6093_intr_default>;
 	};
 };
+
+&mdss_dsi_phy0 { 
+   qcom,panel-allow-phy-poweroff;
+};
