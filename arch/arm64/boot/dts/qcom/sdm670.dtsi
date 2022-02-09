@@ -3355,3 +3355,7 @@
 		<2208000>,
 		<2304000>;
 };
+
+&mdss_dsi_phy0 { 
+   qcom,panel-allow-phy-poweroff;
+};
