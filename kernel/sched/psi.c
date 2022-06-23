@@ -1234,10 +1234,6 @@ static ssize_t psi_write(struct file *file, const char __user *user_buf,
 
 	smp_store_release(&seq->private, new);
 	mutex_unlock(&seq->lock);
-#ifdef VENDOR_EDIT
-/*Huacai.Zhou@Tech.BSP.Kernel.Performance, 2019-05-17, add kernel trigger support*/
-	kref_get(&new->refcount);
-#endif /*VENDOR_EDIT*/
 	return nbytes;
 }
 
