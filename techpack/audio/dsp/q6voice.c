@@ -144,7 +144,7 @@ static int voice_send_get_source_tracking_cmd(struct voice_data *v,
 
 static void voice_vote_powerstate_to_bms(struct voice_data *v, bool state);
 
-bool q6_call_status(){
+bool q6_call_status(void){
 	return call_status;
 }
 
