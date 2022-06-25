@@ -170,15 +170,16 @@ static void  install_bp_hardening_cb(const struct arm64_cpu_capabilities *entry,
 }
 
 #ifdef CONFIG_PSCI_BP_HARDENING
-static void
-enable_psci_bp_hardening(const struct arm64_cpu_capabilities *entry)
+static int enable_psci_bp_hardening(void *data)
 {
+	const struct arm64_cpu_capabilities *entry = data;
+
 	if (psci_ops.get_version)
 		install_bp_hardening_cb(entry,
 				       (bp_hardening_cb_t)psci_ops.get_version,
 				       __psci_hyp_bp_inval_start,
 				       __psci_hyp_bp_inval_end);
-	return;
+	return 0;
 }
 #endif
 
@@ -461,6 +462,14 @@ static const struct midr_range arm64_bp_harden_smccc_cpus[] = {
 	{},
 };
 
+static const struct midr_range arm64_psci_bp_harden_cpus[] = {
+#ifdef CONFIG_PSCI_BP_HARDENING
+	MIDR_ALL_VERSIONS(MIDR_KRYO3G),
+	MIDR_ALL_VERSIONS(MIDR_KRYO2XX_GOLD),
+#endif
+	{},
+};
+
 #endif
 
 const struct arm64_cpu_capabilities arm64_errata[] = {
@@ -551,32 +560,19 @@ const struct arm64_cpu_capabilities arm64_errata[] = {
 		.cpu_enable = cpu_enable_trap_ctr_access,
 	},
 #ifdef CONFIG_HARDEN_BRANCH_PREDICTOR
+#ifdef CONFIG_PSCI_BP_HARDENING
+	{
+		.capability = ARM64_HARDEN_BRANCH_PREDICTOR,
+		ERRATA_MIDR_RANGE_LIST(arm64_psci_bp_harden_cpus),
+		.cpu_enable = enable_psci_bp_hardening,
+	},
+#endif
 	{
 		.capability = ARM64_HARDEN_BRANCH_PREDICTOR,
 		ERRATA_MIDR_RANGE_LIST(arm64_bp_harden_smccc_cpus),
 		.cpu_enable = enable_smccc_arch_workaround_1,
 	},
 #endif
-#ifdef CONFIG_HARDEN_BRANCH_PREDICTOR
-	{
-		.capability = ARM64_HARDEN_BRANCH_PREDICTOR,
-		ERRATA_MIDR_ALL_VERSIONS(MIDR_KRYO3G),
-#ifdef CONFIG_PSCI_BP_HARDENING
-		.cpu_enable = enable_psci_bp_hardening,
-#else
-		.cpu_enable = enable_smccc_arch_workaround_1,
-#endif
-	},
-	{
-		.capability = ARM64_HARDEN_BRANCH_PREDICTOR,
-		ERRATA_MIDR_ALL_VERSIONS(MIDR_KRYO2XX_GOLD),
-#ifdef CONFIG_PSCI_BP_HARDENING
-		.cpu_enable = enable_psci_bp_hardening,
-#else
-		.cpu_enable = enable_smccc_arch_workaround_1,
-#endif
-	},
-#endif /* CONFIG_HARDEN_BRANCH_PREDICTOR */
 #ifdef CONFIG_ARM64_SSBD
 	{
 		.desc = "Speculative Store Bypass Disable",
@@ -865,15 +861,10 @@ static void kvm_setup_bhb_slot(const char *hyp_vecs_start) { };
 
 static bool is_spectrev2_safe(void)
 {
-	static const struct midr_range arm64_psci_bp_harden_cpus[] = {
-		MIDR_ALL_VERSIONS(MIDR_KRYO3G),
-		MIDR_ALL_VERSIONS(MIDR_KRYO2XX_GOLD),
-		{},
-	};
 	return !is_midr_in_range_list(read_cpuid_id(),
-					arm64_psci_bp_harden_cpus) &&
+				      arm64_bp_harden_smccc_cpus) ||
 		!is_midr_in_range_list(read_cpuid_id(),
-					arm64_bp_harden_smccc_cpus);
+				       arm64_psci_bp_harden_cpus);
 }
 
 void spectre_bhb_enable_mitigation(const struct arm64_cpu_capabilities *entry)
